@@ -1,6 +1,18 @@
 <!doctype html>
-<html>
-  <body>
+<html data-ng-app="lifeplanApp">
+  <head>
+    <meta charset="utf-8" >
+    <script src="lib/angular/angular.js"></script>
+    <script src="js/controller.js"></script>
+    <link rel="stylesheet" href="css/base.css" type="text/css">
+  </head>
+  <body data-ng-controller="lifeplanCtrl">
     <h1>It Works.</h1>
+    <p>Nothing here {{'yet' + '!'}}</p>
+    <ul>
+      <li data-ng-repeat="data in datas">
+      <span class="year">{{data.year}}</span><span class="deposit">{{data.deposit}}</span>
+      </li>
+    </ul>
   </body>
 </html>
