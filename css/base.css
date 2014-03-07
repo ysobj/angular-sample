@@ -1,7 +1,10 @@
 .year {
   color: black;
 }
+.age {
+  color: black;
+  margin: 10px;
+}
 .deposit {
-  margin-left: 10px;
   color: blue;
 }

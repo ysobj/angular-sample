@@ -8,11 +8,17 @@
   </head>
   <body data-ng-controller="lifeplanCtrl">
     <h1>It Works.</h1>
+    <form>
+      <label>年齢:<input type="text" name="ageAtStart" data-ng-model="ageAtStart"></label>
+      <label>年間貯蓄額:<input type="text" name="depositPerYear" data-ng-model="depositPerYear"></label>
+      <label>利回り:<input type="text" name="interestRate" data-ng-model="interestRate"></label>
+    </form>
     <button data-ng-click="append()">append</button>
+    <button data-ng-click="refresh()">refresh</button>
     <p>Nothing here {{'yet' + '!'}}</p>
     <ul>
       <li data-ng-repeat="data in datas">
-      <span class="year">{{data.year}}</span><span class="deposit">{{data.deposit}}</span>
+      <span class="year">{{data.year}}</span><span class="age">{{data.age}}</span><span class="deposit">{{data.deposit}}</span>
       </li>
     </ul>
   </body>
