@@ -6,7 +6,7 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
     $scope.interestRate = 101;
     $scope.refresh = function(){
       $scope.datas = [];
-      var totalDeposit = 0;
+      var totalDeposit = parseInt($scope.asset, 10);
       var age = parseInt($scope.ageAtStart, 10);
       var remmaining = 60 - age;
       var end = 2014 + remmaining;
