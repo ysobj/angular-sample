@@ -7,19 +7,41 @@
     <link rel="stylesheet" href="css/base.css" type="text/css">
   </head>
   <body data-ng-controller="lifeplanCtrl">
-    <form>
-      <label>年齢:<input type="text" name="ageAtStart" data-ng-model="ageAtStart"></label>
-      <label>資産:<input type="text" name="asset" data-ng-model="asset"></label>
-      <label>年間貯蓄額:<input type="text" name="depositPerYear" data-ng-model="depositPerYear"></label>
-      <label>利回り:<input type="text" name="interestRate" data-ng-model="interestRate"></label>
+    <form action="#">
+      <div class="basicInfo">
+        <label>年齢:<input type="text" name="ageAtStart" data-ng-model="ageAtStart"></label>
+        <label>資産:<input type="text" name="asset" data-ng-model="asset"></label>
+        <label>年間貯蓄額:<input type="text" name="depositPerYear" data-ng-model="depositPerYear"></label>
+        <label>利回り(%):<input type="text" name="interestRate" data-ng-model="interestRate"></label>
+      </div>
+      <div class="childrenInfo">
+        <div class="child">
+          <label>生年:<input type="text" name="birthYear"></label>
+          <label>幼稚園:<input type="radio" name="kindergarten" value="0" checked="checked">公立<input type="radio" name="kindergarten" value="1">私立<input type="radio" name="highSchool" value="2">考慮しない</label>
+          <label>小学校:<input type="radio" name="primarySchool" value="0" checked="checked">公立<input type="radio" name="primarySchool" value="1">私立</label>
+            <label>中学校:<input type="radio" name="juniorHighSchool" value="0" checked="checked">公立<input type="radio" name="juniorHighSchool" value="1">私立</label>
+            <label>高校:<input type="radio" name="highSchool" value="0" checked="checked">公立<input type="radio" name="highSchool" value="1">私立<input type="radio" name="highSchool" value="2">考慮しない</label>
+          <label>大学:<input type="radio" name="university" value="0" checked="checked">公立<input type="radio" name="university" value="1">私立<input type="radio" name="university" value="2">考慮しない</label>
+        </div>
+      </div>
     </form>
     <button data-ng-click="append()">append</button>
     <button data-ng-click="refresh()">refresh</button>
-    <p>Nothing here {{'yet' + '!'}}</p>
-    <ul>
-      <li data-ng-repeat="data in datas">
-      <span class="year">{{data.year}}</span><span class="age">{{data.age}}</span><span class="deposit">{{data.deposit}}</span>
-      </li>
-    </ul>
+    <table>
+      <tr>
+        <th>西暦</th>
+        <th>年齢</th>
+        <th>資産額</th>
+        <th>子供年齢</th>
+        <th>学費</th>
+      </tr>
+      <tr data-ng-repeat="data in datas">
+        <td><span class="year">{{data.year}}</span></td>
+        <td><span class="age">{{data.age}}</span></td>
+        <td><span class="deposit">{{data.deposit}}</span></td>
+        <td><span class="childAge">{{data.childAge}}</span></td>
+        <td><span class="schoolExpenses">{{data.schoolExpenses}}</span></td>
+      </tr>
+    </table>
   </body>
 </html>
