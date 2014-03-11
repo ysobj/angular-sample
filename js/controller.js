@@ -2,12 +2,12 @@ var lifeplanApp = angular.module('lifeplanApp', []);
 
 lifeplanApp.controller('lifeplanCtrl', function($scope){
   /* initial value */
+  $scope.year = 2014;
   $scope.ageAtStart = 22;
   $scope.asset = 10000000;
   $scope.depositPerYear = 1000000;
   $scope.interestRate = 101;
-  $scope.birthYear = 2014;
-  var currentYear = 2014;
+  $scope.birthYear = $scope.year;
   // statistics
   var retirement = 60;
   // school expenses
@@ -43,10 +43,11 @@ var normalizeAge = function(age){
 // logic
 $scope.refresh = function(){
   $scope.datas = [];
+  var currentYear = parseInt($scope.year,10);
   var totalDeposit = parseInt($scope.asset, 10);
   var age = parseInt($scope.ageAtStart, 10);
-  var remmaining = retirement - age;
-  var end = currentYear + remmaining;
+  var remaining = retirement - age;
+  var end = currentYear + remaining;
   var birthYear = parseInt($scope.birthYear, 10);
   var i;
   for(i = currentYear; i <= end; i++){
@@ -54,7 +55,7 @@ $scope.refresh = function(){
     {
       'year' : i,
       'age' : age,
-      'deposit' : totalDeposit
+      'deposit' : Math.round(totalDeposit)
     };
     var childAge = normalizeAge(i - birthYear);
     if(childAge || childAge === 0){
@@ -65,19 +66,6 @@ $scope.refresh = function(){
     totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  + parseInt($scope.depositPerYear, 10);
     age++;
   }
-};
-$scope.append = function(){
-  var maxYear = 0;
-  angular.forEach($scope.datas, function(value){
-    if(maxYear < value.year){
-      maxYear = value.year;
-    }
-  });
-  $scope.datas.push(
-      {
-        'year' : maxYear+1,
-    'deposit' : $scope.depositPerYear
-      });
 };
 $scope.datas = [
 {

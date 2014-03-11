@@ -9,6 +9,7 @@
   <body data-ng-controller="lifeplanCtrl">
     <form action="#">
       <div class="basicInfo">
+        <label>開始年:<input type="text" name="year" data-ng-model="year"></label>
         <label>年齢:<input type="text" name="ageAtStart" data-ng-model="ageAtStart"></label>
         <label>資産:<input type="text" name="asset" data-ng-model="asset"></label>
         <label>年間貯蓄額:<input type="text" name="depositPerYear" data-ng-model="depositPerYear"></label>
@@ -25,7 +26,6 @@
         </div>
       </div>
     </form>
-    <button data-ng-click="append()">append</button>
     <button data-ng-click="refresh()">refresh</button>
     <table>
       <tr>
