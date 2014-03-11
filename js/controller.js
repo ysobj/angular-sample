@@ -2,12 +2,17 @@ var lifeplanApp = angular.module('lifeplanApp', []);
 
 lifeplanApp.controller('lifeplanCtrl', function($scope){
   /* initial value */
-  $scope.year = 2014;
+  $scope.year = 2000;
   $scope.ageAtStart = 22;
   $scope.asset = 10000000;
   $scope.depositPerYear = 1000000;
   $scope.interestRate = 101;
-  $scope.birthYear = $scope.year;
+  $scope.birthYear = 2006;
+  $scope.kindergarten = 0;
+  $scope.primarySchool = 0;
+  $scope.juniorHighSchool = 0;
+  $scope.highSchool = 1;
+  $scope.university = 1;
   // statistics
   var retirement = 60;
   // school expenses
@@ -58,9 +63,14 @@ $scope.refresh = function(){
       'deposit' : Math.round(totalDeposit)
     };
     var childAge = normalizeAge(i - birthYear);
+    var schoolType = 0;
     if(childAge || childAge === 0){
       tmp.childAge = childAge;
-      tmp.schoolExpenses = schoolExpenses[0][i - birthYear];
+      tmp.childSchool = schoolYear[childAge];
+      schoolType = $scope[tmp.childSchool];
+      if(schoolType != null){
+          tmp.schoolExpenses = schoolExpenses[schoolType][i - birthYear];
+      }
     }
     $scope.datas.push(tmp);
     totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  + parseInt($scope.depositPerYear, 10);
