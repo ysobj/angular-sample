@@ -2,12 +2,12 @@ var lifeplanApp = angular.module('lifeplanApp', []);
 
 lifeplanApp.controller('lifeplanCtrl', function($scope){
   /* initial value */
-  $scope.year = 2014;
+  $scope.year = 2000;
   $scope.ageAtStart = 22;
   $scope.asset = 10000000;
   $scope.depositPerYear = 1000000;
   $scope.interestRate = 101;
-  $scope.birthYear = $scope.year;
+  $scope.birthYear = 2006;
   // statistics
   var retirement = 60;
   // school expenses
@@ -60,6 +60,7 @@ $scope.refresh = function(){
     var childAge = normalizeAge(i - birthYear);
     if(childAge || childAge === 0){
       tmp.childAge = childAge;
+      tmp.childSchool = schoolYear[childAge];
       tmp.schoolExpenses = schoolExpenses[0][i - birthYear];
     }
     $scope.datas.push(tmp);
