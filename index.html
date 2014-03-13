@@ -25,6 +25,12 @@
           <label>大学:<input type="radio" data-ng-model="university" name="university" value="0" checked="checked">公立<input data-ng-model="university" type="radio" name="university" value="1">私立<input data-ng-model="university" type="radio" name="university" value="2">考慮しない</label>
         </div>
       </div>
+      <div class="oldAgeInfo">
+        <label>生活費(年):<input type="text" name="livingCost" data-ng-model="livingCost"></label>
+        <label>定年:<input type="text" name="retirementAge" data-ng-model="retirementAge"></label>
+        <label>年金額:<input type="text" name="pension" data-ng-model="pension"></label>
+        <label>年金支給開始年齢:<input type="text" name="pensionStart" data-ng-model="pensionStart"></label>
+      </div>
     </form>
     <button data-ng-click="refresh()">refresh</button>
     <table>

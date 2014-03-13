@@ -13,8 +13,12 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
   $scope.juniorHighSchool = 0;
   $scope.highSchool = 1;
   $scope.university = 1;
+  $scope.pension = 786500;
+  $scope.livingCost = 297070 * 12;
+  $scope.pensionStart = 65;
+  $scope.retirementAge= 60;
   // statistics
-  var retirement = 60;
+  var lifeSpan = 80;
   // school expenses
   var publicSchool = [
   0, 0, 0, 0,
@@ -51,7 +55,7 @@ $scope.refresh = function(){
   var currentYear = parseInt($scope.year,10);
   var totalDeposit = parseInt($scope.asset, 10);
   var age = parseInt($scope.ageAtStart, 10);
-  var remaining = retirement - age;
+  var remaining = lifeSpan - age;
   var end = currentYear + remaining;
   var birthYear = parseInt($scope.birthYear, 10);
   var i;
@@ -73,7 +77,14 @@ $scope.refresh = function(){
       }
     }
     $scope.datas.push(tmp);
-    totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  + parseInt($scope.depositPerYear, 10);
+    if(age <= parseInt($scope.retirementAge)){
+      totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  + parseInt($scope.depositPerYear, 10);
+    }else{
+      totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  - parseInt($scope.livingCost, 10);
+    }
+    if(age >= parseInt($scope.pensionStart,10)){
+      totalDeposit += parseInt($scope.pension,10);
+    }
     age++;
   }
 };
