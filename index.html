@@ -34,49 +34,67 @@
       </div>
       <div class="col-md-3">
         <div class="childrenInfo box box-info">
-          <div class="child">
-            <div class="form-group">
-              <label>生年</label><input type="text" name="birthYear" data-ng-model="birthYear">
+          <div class="box-header">子供</div>
+          <div class="box-body">
+            <div class="child">
+              <div class="form-group">
+                <label>生年</label><input type="text" name="birthYear" data-ng-model="birthYear">
+              </div>
+              <label>幼稚園:<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="0" checked="checked">公立<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="1">私立<input data-ng-model="kindergarten" type="radio" name="highSchool" value="2">考慮しない</label>
+              <label>小学校:<input type="radio" data-ng-model="primarySchool" name="primarySchool" value="0" checked="checked">公立<input data-ng-model="primarySchool" type="radio" name="primarySchool" value="1">私立</label>
+              <label>中学校:<input type="radio" data-ng-model="juniorHighSchool" name="juniorHighSchool" value="0" checked="checked">公立<input data-ng-model="juniorHighSchool" type="radio" name="juniorHighSchool" value="1">私立</label>
+              <label>高校:<input data-ng-model="highSchool" type="radio" name="highSchool" value="0" checked="checked">公立<input data-ng-model="highSchool" type="radio" name="highSchool" value="1">私立<input data-ng-model="highSchool" type="radio" name="highSchool" value="2">考慮しない</label>
+              <label>大学:<input type="radio" data-ng-model="university" name="university" value="0" checked="checked">公立<input data-ng-model="university" type="radio" name="university" value="1">私立<input data-ng-model="university" type="radio" name="university" value="2">考慮しない</label>
             </div>
-            <label>幼稚園:<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="0" checked="checked">公立<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="1">私立<input data-ng-model="kindergarten" type="radio" name="highSchool" value="2">考慮しない</label>
-            <label>小学校:<input type="radio" data-ng-model="primarySchool" name="primarySchool" value="0" checked="checked">公立<input data-ng-model="primarySchool" type="radio" name="primarySchool" value="1">私立</label>
-            <label>中学校:<input type="radio" data-ng-model="juniorHighSchool" name="juniorHighSchool" value="0" checked="checked">公立<input data-ng-model="juniorHighSchool" type="radio" name="juniorHighSchool" value="1">私立</label>
-            <label>高校:<input data-ng-model="highSchool" type="radio" name="highSchool" value="0" checked="checked">公立<input data-ng-model="highSchool" type="radio" name="highSchool" value="1">私立<input data-ng-model="highSchool" type="radio" name="highSchool" value="2">考慮しない</label>
-            <label>大学:<input type="radio" data-ng-model="university" name="university" value="0" checked="checked">公立<input data-ng-model="university" type="radio" name="university" value="1">私立<input data-ng-model="university" type="radio" name="university" value="2">考慮しない</label>
           </div>
         </div>
       </div>
-      <div class="oldAgeInfo">
-        <label>生活費(年):<input type="text" name="livingCost" data-ng-model="livingCost"></label>
-        <label>定年:<input type="text" name="retirementAge" data-ng-model="retirementAge"></label>
-        <label>年金額:<input type="text" name="pension" data-ng-model="pension"></label>
-        <label>年金支給開始年齢:<input type="text" name="pensionStart" data-ng-model="pensionStart"></label>
+      <div class="col-md-3">
+        <div class="oldAgeInfo box box-info">
+          <div class="box-header">定年</div>
+          <div class="box-body">
+            <label>生活費(年):<input type="text" name="livingCost" data-ng-model="livingCost"></label>
+            <label>定年:<input type="text" name="retirementAge" data-ng-model="retirementAge"></label>
+            <label>年金額:<input type="text" name="pension" data-ng-model="pension"></label>
+            <label>年金支給開始年齢:<input type="text" name="pensionStart" data-ng-model="pensionStart"></label>
+          </div>
+        </div>
       </div>
     </form>
-    <button data-ng-click="refresh()" class="btn btn-primary">refresh</button>
-    <div class="resultArea">
-      <table>
-        <thead>
-          <tr>
-            <th>西暦</th>
-            <th>年齢</th>
-            <th>資産額</th>
-            <th>子供年齢</th>
-            <th>学校</th>
-            <th>学費</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr data-ng-repeat="data in datas">
-            <td><span class="year">{{data.year}}</span></td>
-            <td><span class="age">{{data.age}}</span></td>
-            <td><span class="deposit">{{data.deposit}}</span></td>
-            <td><span class="childAge">{{data.childAge}}</span></td>
-            <td><span class="childSchool">{{data.childSchool}}</span></td>
-            <td><span class="schoolExpenses">{{data.schoolExpenses}}</span></td>
-          </tr>
-        </tbody>
-      </table>
+
+    <div class="col-md-12">
+      <div class="box">
+        <button data-ng-click="refresh()" class="btn btn-primary">refresh</button>
+      </div>
+    </div>
+    <div class="col-md-12">
+      <div class="resultArea box box-warning">
+          <div class="box-header">結果表示</div>
+          <div class="box-body">
+        <table>
+          <thead>
+            <tr>
+              <th>西暦</th>
+              <th>年齢</th>
+              <th>資産額</th>
+              <th>子供年齢</th>
+              <th>学校</th>
+              <th>学費</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr data-ng-repeat="data in datas">
+              <td><span class="year">{{data.year}}</span></td>
+              <td><span class="age">{{data.age}}</span></td>
+              <td><span class="deposit">{{data.deposit}}</span></td>
+              <td><span class="childAge">{{data.childAge}}</span></td>
+              <td><span class="childSchool">{{data.childSchool}}</span></td>
+              <td><span class="schoolExpenses">{{data.schoolExpenses}}</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
     </div>
   </body>
 </html>
