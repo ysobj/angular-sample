@@ -5,24 +5,45 @@
     <script src="lib/angular/angular.js"></script>
     <script src="js/controller.js"></script>
     <link rel="stylesheet" href="css/base.css" type="text/css">
+    <link href="css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="css/AdminLTE.css" rel="stylesheet" type="text/css" />
   </head>
   <body data-ng-controller="lifeplanCtrl">
     <form action="#">
-      <div class="basicInfo">
-        <label>開始年:<input type="text" name="year" data-ng-model="year"></label>
-        <label>年齢:<input type="text" name="ageAtStart" data-ng-model="ageAtStart"></label>
-        <label>資産:<input type="text" name="asset" data-ng-model="asset"></label>
-        <label>年間貯蓄額:<input type="text" name="depositPerYear" data-ng-model="depositPerYear"></label>
-        <label>利回り(%):<input type="text" name="interestRate" data-ng-model="interestRate"></label>
+      <div class="col-md-3">
+        <div class="basicInfo box box-primary" >
+          <div class="box-header">基本情報</div>
+          <div class="box-body">
+            <div class="form-group">
+              <label>開始年</label><input type="text" name="year" data-ng-model="year">
+            </div>
+            <div class="form-group">
+              <label>年齢</label><input type="text" name="ageAtStart" data-ng-model="ageAtStart">
+            </div>
+            <div class="form-group">
+              <label>資産</label><input type="text" name="asset" data-ng-model="asset">
+            </div>
+            <div class="form-group">
+              <label>年間貯蓄額</label><input type="text" name="depositPerYear" data-ng-model="depositPerYear">
+            </div>
+            <div class="form-group">
+              <label>利回り(%)</label><input type="text" name="interestRate" data-ng-model="interestRate">
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="childrenInfo">
-        <div class="child">
-          <label>生年:<input type="text" name="birthYear" data-ng-model="birthYear"></label>
-          <label>幼稚園:<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="0" checked="checked">公立<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="1">私立<input data-ng-model="kindergarten" type="radio" name="highSchool" value="2">考慮しない</label>
-          <label>小学校:<input type="radio" data-ng-model="primarySchool" name="primarySchool" value="0" checked="checked">公立<input data-ng-model="primarySchool" type="radio" name="primarySchool" value="1">私立</label>
-          <label>中学校:<input type="radio" data-ng-model="juniorHighSchool" name="juniorHighSchool" value="0" checked="checked">公立<input data-ng-model="juniorHighSchool" type="radio" name="juniorHighSchool" value="1">私立</label>
-          <label>高校:<input data-ng-model="highSchool" type="radio" name="highSchool" value="0" checked="checked">公立<input data-ng-model="highSchool" type="radio" name="highSchool" value="1">私立<input data-ng-model="highSchool" type="radio" name="highSchool" value="2">考慮しない</label>
-          <label>大学:<input type="radio" data-ng-model="university" name="university" value="0" checked="checked">公立<input data-ng-model="university" type="radio" name="university" value="1">私立<input data-ng-model="university" type="radio" name="university" value="2">考慮しない</label>
+      <div class="col-md-3">
+        <div class="childrenInfo box box-info">
+          <div class="child">
+            <div class="form-group">
+              <label>生年</label><input type="text" name="birthYear" data-ng-model="birthYear">
+            </div>
+            <label>幼稚園:<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="0" checked="checked">公立<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="1">私立<input data-ng-model="kindergarten" type="radio" name="highSchool" value="2">考慮しない</label>
+            <label>小学校:<input type="radio" data-ng-model="primarySchool" name="primarySchool" value="0" checked="checked">公立<input data-ng-model="primarySchool" type="radio" name="primarySchool" value="1">私立</label>
+            <label>中学校:<input type="radio" data-ng-model="juniorHighSchool" name="juniorHighSchool" value="0" checked="checked">公立<input data-ng-model="juniorHighSchool" type="radio" name="juniorHighSchool" value="1">私立</label>
+            <label>高校:<input data-ng-model="highSchool" type="radio" name="highSchool" value="0" checked="checked">公立<input data-ng-model="highSchool" type="radio" name="highSchool" value="1">私立<input data-ng-model="highSchool" type="radio" name="highSchool" value="2">考慮しない</label>
+            <label>大学:<input type="radio" data-ng-model="university" name="university" value="0" checked="checked">公立<input data-ng-model="university" type="radio" name="university" value="1">私立<input data-ng-model="university" type="radio" name="university" value="2">考慮しない</label>
+          </div>
         </div>
       </div>
       <div class="oldAgeInfo">
@@ -32,29 +53,29 @@
         <label>年金支給開始年齢:<input type="text" name="pensionStart" data-ng-model="pensionStart"></label>
       </div>
     </form>
-    <button data-ng-click="refresh()">refresh</button>
+    <button data-ng-click="refresh()" class="btn btn-primary">refresh</button>
     <div class="resultArea">
       <table>
         <thead>
-        <tr>
-          <th>西暦</th>
-          <th>年齢</th>
-          <th>資産額</th>
-          <th>子供年齢</th>
-          <th>学校</th>
-          <th>学費</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr data-ng-repeat="data in datas">
-          <td><span class="year">{{data.year}}</span></td>
-          <td><span class="age">{{data.age}}</span></td>
-          <td><span class="deposit">{{data.deposit}}</span></td>
-          <td><span class="childAge">{{data.childAge}}</span></td>
-          <td><span class="childSchool">{{data.childSchool}}</span></td>
-          <td><span class="schoolExpenses">{{data.schoolExpenses}}</span></td>
-        </tr>
-      </tbody>
+          <tr>
+            <th>西暦</th>
+            <th>年齢</th>
+            <th>資産額</th>
+            <th>子供年齢</th>
+            <th>学校</th>
+            <th>学費</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr data-ng-repeat="data in datas">
+            <td><span class="year">{{data.year}}</span></td>
+            <td><span class="age">{{data.age}}</span></td>
+            <td><span class="deposit">{{data.deposit}}</span></td>
+            <td><span class="childAge">{{data.childAge}}</span></td>
+            <td><span class="childSchool">{{data.childSchool}}</span></td>
+            <td><span class="schoolExpenses">{{data.schoolExpenses}}</span></td>
+          </tr>
+        </tbody>
       </table>
     </div>
   </body>
