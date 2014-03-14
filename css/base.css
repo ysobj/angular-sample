@@ -8,3 +8,8 @@
 .deposit {
   color: blue;
 }
+
+.resultArea{
+  height: 800px;
+  overflow: auto;
+}
