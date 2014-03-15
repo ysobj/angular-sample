@@ -87,7 +87,7 @@ $scope.refresh = function(){
     }
     age++;
   }
-        $('myfirstchart').empty();
+        $('#myfirstchart').empty();
         var arr = [];
         angular.forEach($scope.datas,function(tmp){
           var obj = {};
