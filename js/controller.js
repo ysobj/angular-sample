@@ -77,7 +77,7 @@ $scope.refresh = function(){
       }
     }
     $scope.datas.push(tmp);
-    if(age <= parseInt($scope.retirementAge)){
+    if(age <= parseInt($scope.retirementAge,10)){
       totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  + parseInt($scope.depositPerYear, 10);
     }else{
       totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  - parseInt($scope.livingCost, 10);
@@ -87,6 +87,38 @@ $scope.refresh = function(){
     }
     age++;
   }
+        $('myfirstchart').empty();
+        var arr = [];
+        angular.forEach($scope.datas,function(tmp){
+          var obj = {};
+          obj.year = '' + tmp.year;
+          obj.deposit = tmp.deposit;
+          arr.push(obj);
+        });
+        $scope.graph = new Morris.Line({
+          // ID of the element in which to draw the chart.
+          element: 'myfirstchart',
+          // Chart data records -- each entry in this array corresponds to a point on
+          // the chart.
+          data: 
+          arr,
+          /*
+          [
+          { year: '2008', value: 20 },
+          { year: '2009', value: 10 },
+          { year: '2010', value: 5 },
+          { year: '2011', value: 5 },
+          { year: '2012', value: 20 }
+          ],
+          */
+          // The name of the data record attribute that contains x-values.
+          xkey: 'year',
+          // A list of names of data record attributes that contain y-values.
+          ykeys: ['deposit'],
+          // Labels for the ykeys -- will be displayed when you hover over the
+          // chart.
+          labels: ['Value']
+        });
 };
 $scope.datas = [
 {
