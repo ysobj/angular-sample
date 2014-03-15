@@ -92,6 +92,9 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
       }
       age++;
     }
+    $scope.processGraph();
+  };
+  $scope.processGraph = function(){
     $('#myfirstchart').empty();
     var arr = [];
     angular.forEach($scope.datas,function(tmp){
