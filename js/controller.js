@@ -21,124 +21,125 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
   var lifeSpan = 80;
   // school expenses
   var publicSchool = [
-  0, 0, 0, 0,
-  190000, 210000, 260000,
-  310000, 250000, 270000, 300000, 310000, 390000,
-  450000, 400000, 500000,
-  440000, 400000, 330000
-  ];
-var privateSchool = [
-  0, 0, 0, 0,
-  480000, 450000, 530000,
-  1700000, 1200000, 1250000, 1400000, 1450000, 1550000,
-  1560000, 1120000, 1200000,
-  1160000, 850000, 880000
-    ];
-var schoolExpenses = [publicSchool, privateSchool];
+    0, 0, 0, 0,
+    190000, 210000, 260000,
+    310000, 250000, 270000, 300000, 310000, 390000,
+    450000, 400000, 500000,
+    440000, 400000, 330000
+      ];
+  var privateSchool = [
+    0, 0, 0, 0,
+    480000, 450000, 530000,
+    1700000, 1200000, 1250000, 1400000, 1450000, 1550000,
+    1560000, 1120000, 1200000,
+    1160000, 850000, 880000
+      ];
+  var schoolExpenses = [publicSchool, privateSchool];
 
-var schoolYear = [ null, null, null, null,
-    'kindergarten', 'kindergarten', 'kindergarten',
-    'primarySchool','primarySchool','primarySchool','primarySchool','primarySchool','primarySchool',
-    'juniorHighSchool','juniorHighSchool','juniorHighSchool',
-    'highSchool','highSchool','highSchool',
-    'university','university','university','university'];
+  var schoolYear = [ null, null, null, null,
+      'kindergarten', 'kindergarten', 'kindergarten',
+      'primarySchool','primarySchool','primarySchool','primarySchool','primarySchool','primarySchool',
+      'juniorHighSchool','juniorHighSchool','juniorHighSchool',
+      'highSchool','highSchool','highSchool',
+      'university','university','university','university'];
 
-var normalizeAge = function(age){
-  if(age < 0){
-    return null;
-  }
-  return age;
-};
-var normalizeNum = function(num){
-  if(num != null){
-    return num;
-  }
-  return 0;
-};
-// logic
-$scope.refresh = function(){
-  $scope.datas = [];
-  var currentYear = parseInt($scope.year,10);
-  var totalDeposit = parseInt($scope.asset, 10);
-  var age = parseInt($scope.ageAtStart, 10);
-  var remaining = lifeSpan - age;
-  var end = currentYear + remaining;
-  var birthYear = parseInt($scope.birthYear, 10);
-  var i;
-  for(i = currentYear; i <= end; i++){
-    var tmp = 
-    {
-      'year' : i,
-      'age' : age,
-      'deposit' : Math.round(totalDeposit)
-    };
-    var childAge = normalizeAge(i - birthYear);
+  var normalizeAge = function(age){
+    if(age < 0){
+      return null;
+    }
+    return age;
+  };
+  var normalizeNum = function(num){
+    if(num != null){
+      return num;
+    }
+    return 0;
+  };
+  // logic
+  $scope.refresh = function(){
+    $scope.datas = [];
+    var currentYear = parseInt($scope.year,10);
+    var totalDeposit = parseInt($scope.asset, 10);
+    var age = parseInt($scope.ageAtStart, 10);
+    var remaining = lifeSpan - age;
+    var end = currentYear + remaining;
+    var birthYear = parseInt($scope.birthYear, 10);
+    var i;
+    for(i = currentYear; i <= end; i++){
+      var tmp = 
+      {
+        'year' : i,
+        'age' : age,
+        'deposit' : Math.round(totalDeposit),
+        'children' : []
+      };
+      var child = {};
+      child.birthYear = birthYear;
+      $scope.processChild(tmp,{ 'birthYear': birthYear }, child);
+      tmp.children.push(child);
+
+      $scope.datas.push(tmp);
+      if(age <= parseInt($scope.retirementAge,10)){
+        totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  + parseInt($scope.depositPerYear, 10);
+      }else{
+        totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  - parseInt($scope.livingCost, 10);
+      }
+      angular.forEach(tmp.children, function(child){
+        totalDeposit = totalDeposit - normalizeNum(child.schoolExpenses);
+      });
+      if(age >= parseInt($scope.pensionStart,10)){
+        totalDeposit += parseInt($scope.pension,10);
+      }
+      age++;
+    }
+    $('#myfirstchart').empty();
+    var arr = [];
+    angular.forEach($scope.datas,function(tmp){
+      var obj = {};
+      obj.year = String(tmp.year);
+      obj.deposit = tmp.deposit;
+      arr.push(obj);
+    });
+    $scope.graph = new Morris.Line({
+      // ID of the element in which to draw the chart.
+      element: 'myfirstchart',
+      // Chart data records -- each entry in this array corresponds to a point on
+      // the chart.
+      data: 
+      arr,
+      // The name of the data record attribute that contains x-values.
+      xkey: 'year',
+      // A list of names of data record attributes that contain y-values.
+      ykeys: ['deposit'],
+      // Labels for the ykeys -- will be displayed when you hover over the
+      // chart.
+      labels: ['Value']
+    });
+  };
+  $scope.processChild = function(context, childSetting, child){
+    var childAge = normalizeAge(context.year - childSetting.birthYear);
     var schoolType = 0;
     if(childAge || childAge === 0){
-      tmp.childAge = childAge;
-      tmp.childSchool = schoolYear[childAge];
-      schoolType = $scope[tmp.childSchool];
+      child.childAge = childAge;
+      child.childSchool = schoolYear[childAge];
+      schoolType = $scope[child.childSchool];
       if(schoolType != null){
-          tmp.schoolExpenses = schoolExpenses[schoolType][i - birthYear];
+        child.schoolExpenses = schoolExpenses[schoolType][childAge];
       }
     }
-    $scope.datas.push(tmp);
-    if(age <= parseInt($scope.retirementAge,10)){
-      totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  + parseInt($scope.depositPerYear, 10);
-    }else{
-      totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  - parseInt($scope.livingCost, 10);
-    }
-    totalDeposit = totalDeposit - normalizeNum(tmp.schoolExpenses);
-    if(age >= parseInt($scope.pensionStart,10)){
-      totalDeposit += parseInt($scope.pension,10);
-    }
-    age++;
+  };
+  $scope.datas = [
+  {
+    'year' : 2013,
+      'deposit' : 130
+  },
+  {
+    'year' : 2014,
+    'deposit' : 100
+  },
+  {
+    'year' : 2015,
+    'deposit' : 120
   }
-        $('#myfirstchart').empty();
-        var arr = [];
-        angular.forEach($scope.datas,function(tmp){
-          var obj = {};
-          obj.year = '' + tmp.year;
-          obj.deposit = tmp.deposit;
-          arr.push(obj);
-        });
-        $scope.graph = new Morris.Line({
-          // ID of the element in which to draw the chart.
-          element: 'myfirstchart',
-          // Chart data records -- each entry in this array corresponds to a point on
-          // the chart.
-          data: 
-          arr,
-          /*
-          [
-          { year: '2008', value: 20 },
-          { year: '2009', value: 10 },
-          { year: '2010', value: 5 },
-          { year: '2011', value: 5 },
-          { year: '2012', value: 20 }
-          ],
-          */
-          // The name of the data record attribute that contains x-values.
-          xkey: 'year',
-          // A list of names of data record attributes that contain y-values.
-          ykeys: ['deposit'],
-          // Labels for the ykeys -- will be displayed when you hover over the
-          // chart.
-          labels: ['Value']
-        });
-};
-$scope.datas = [
-{
-  'year' : 2013,
-    'deposit' : 130
-},
-{
-  'year' : 2014,
-  'deposit' : 100
-},
-{
-  'year' : 2015,
-  'deposit' : 120
-}
-];
+  ];
 });
