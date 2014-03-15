@@ -49,6 +49,12 @@ var normalizeAge = function(age){
   }
   return age;
 };
+var normalizeNum = function(num){
+  if(num != null){
+    return num;
+  }
+  return 0;
+};
 // logic
 $scope.refresh = function(){
   $scope.datas = [];
@@ -82,6 +88,7 @@ $scope.refresh = function(){
     }else{
       totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  - parseInt($scope.livingCost, 10);
     }
+    totalDeposit = totalDeposit - normalizeNum(tmp.schoolExpenses);
     if(age >= parseInt($scope.pensionStart,10)){
       totalDeposit += parseInt($scope.pension,10);
     }
