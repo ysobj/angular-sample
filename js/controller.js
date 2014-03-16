@@ -11,7 +11,8 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
   $scope.pension = 786500;
   $scope.livingCost = 297070 * 12;
   $scope.pensionStart = 65;
-  $scope.retirementAge= 60;
+  $scope.retirementAge = 60;
+  $scope.retirementMoney = 10000000;
 
   $scope.childSettings = [{
     birthYear: 2006,
@@ -88,6 +89,7 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
     var end = currentYear + remaining;
     var birthYear = parseInt($scope.birthYear, 10);
     var i;
+    var retirementAge = parseInt($scope.retirementAge,10);
     for(i = currentYear; i <= end; i++){
       var tmp = 
       {
@@ -104,7 +106,10 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
       });
 
       $scope.datas.push(tmp);
-      if(age <= parseInt($scope.retirementAge,10)){
+      if(age == retirementAge){
+        totalDeposit += parseInt($scope.retirementMoney, 10);
+      }
+      if(age <= retirementAge){
         totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  + parseInt($scope.depositPerYear, 10);
       }else{
         totalDeposit = (totalDeposit * parseInt($scope.interestRate, 10)) / 100  - parseInt($scope.livingCost, 10);
