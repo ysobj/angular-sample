@@ -17,6 +17,8 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
   $scope.livingCost = 297070 * 12;
   $scope.pensionStart = 65;
   $scope.retirementAge= 60;
+
+  $scope.childSettings = [{},{}];
   // statistics
   var lifeSpan = 80;
   // school expenses
@@ -57,6 +59,7 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
   };
   // logic
   $scope.refresh = function(){
+    console.log($scope);
     $scope.datas = [];
     var currentYear = parseInt($scope.year,10);
     var totalDeposit = parseInt($scope.asset, 10);
