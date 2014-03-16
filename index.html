@@ -42,33 +42,6 @@
           <div class="box-body">
             <div class="child">
               <div class="form-group">
-                <label>生年</label><input type="text" name="birthYear" data-ng-model="birthYear">
-              </div>
-              <div class="form-group">
-              <label>幼稚園:<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="0" checked="checked">公立<input data-ng-model="kindergarten" type="radio" name="kindergarten" value="1">私立<input data-ng-model="kindergarten" type="radio" name="highSchool" value="2">考慮しない</label>
-              </div>
-              <div class="form-group">
-              <label>小学校:<input type="radio" data-ng-model="primarySchool" name="primarySchool" value="0" checked="checked">公立<input data-ng-model="primarySchool" type="radio" name="primarySchool" value="1">私立</label>
-              </div>
-              <div class="form-group">
-              <label>中学校:<input type="radio" data-ng-model="juniorHighSchool" name="juniorHighSchool" value="0" checked="checked">公立<input data-ng-model="juniorHighSchool" type="radio" name="juniorHighSchool" value="1">私立</label>
-              </div>
-              <div class="form-group">
-              <label>高校:<input data-ng-model="highSchool" type="radio" name="highSchool" value="0" checked="checked">公立<input data-ng-model="highSchool" type="radio" name="highSchool" value="1">私立<input data-ng-model="highSchool" type="radio" name="highSchool" value="2">考慮しない</label>
-              </div>
-              <div class="form-group">
-              <label>大学:<input type="radio" data-ng-model="university" name="university" value="0" checked="checked">公立<input data-ng-model="university" type="radio" name="university" value="1">私立<input data-ng-model="university" type="radio" name="university" value="2">考慮しない</label>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-md-3">
-        <div class="childrenInfo small-box bg-blue">
-          <div class="inner"><h4>子供</h4></div>
-          <div class="box-body">
-            <div class="child">
-              <div class="form-group">
                 <label>生年</label><input type="text" data-ng-model="childSettings[0].birthYear">
               </div>
               <div class="form-group">
@@ -84,7 +57,34 @@
               <label>高校:<input data-ng-model="highSchool" type="radio" name="childSettings[0].highSchool" value="0" checked="checked">公立<input data-ng-model="childSettings[0].highSchool" type="radio" name="childSettings[0].highSchool" value="1">私立<input data-ng-model="childSettings[0].highSchool" type="radio" name="childSettings[0].highSchool" value="2">考慮しない</label>
               </div>
               <div class="form-group">
-              <label>大学:<input type="radio" data-ng-model="childSettings[0].university" name="childSettings[0].university" value="0" checked="checked">公立<input data-ng-model="childSettings[0].university" type="radio" name="childSettings[0].university" value="1">私立<input data-ng-model="childSettings[0].university" type="radio" name="childSettings[0].university" value="2">考慮しない</label>
+              <label>大学:<input type="radio" data-ng-model="childSettings[0].university" name="childSettings[0].university" value="0" checked="checked">公立<input data-ng-model="childSettings[0].university" type="radio" name="childSettings[0].university" value="1">私立文系<input data-ng-model="childSettings[0].university" type="radio" name="childSettings[0].university" value="2">私立理系<input data-ng-model="childSettings[0].university" type="radio" name="childSettings[0].university" value="3">考慮しない</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="childrenInfo small-box bg-blue">
+          <div class="inner"><h4>子供</h4></div>
+          <div class="box-body">
+            <div class="child">
+              <div class="form-group">
+                <label>生年</label><input type="text" data-ng-model="childSettings[1].birthYear">
+              </div>
+              <div class="form-group">
+              <label>幼稚園:<input data-ng-model="childSettings[1].kindergarten" type="radio" name="childSettings[1].kindergarten" value="0" checked="checked">公立<input data-ng-model="childSettings[1].kindergarten" type="radio" name="childSettings[1].kindergarten" value="1">私立<input data-ng-model="childSettings[1].kindergarten" type="radio" name="kindergarten" value="2">考慮しない</label>
+              </div>
+              <div class="form-group">
+              <label>小学校:<input type="radio" data-ng-model="childSettings[1].primarySchool" name="childSettings[1].primarySchool" value="0" checked="checked">公立<input data-ng-model="childSettings[1].primarySchool" type="radio" name="childSettings[1].primarySchool" value="1">私立</label>
+              </div>
+              <div class="form-group">
+              <label>中学校:<input type="radio" data-ng-model="childSettings[1].juniorHighSchool" name="childSettings[1].juniorHighSchool" value="0" checked="checked">公立<input data-ng-model="childSettings[1].juniorHighSchool" type="radio" name="childSettings[1].juniorHighSchool" value="1">私立</label>
+              </div>
+              <div class="form-group">
+              <label>高校:<input data-ng-model="highSchool" type="radio" name="childSettings[1].highSchool" value="0" checked="checked">公立<input data-ng-model="childSettings[1].highSchool" type="radio" name="childSettings[1].highSchool" value="1">私立<input data-ng-model="childSettings[1].highSchool" type="radio" name="childSettings[1].highSchool" value="2">考慮しない</label>
+              </div>
+              <div class="form-group">
+              <label>大学:<input type="radio" data-ng-model="childSettings[1].university" name="childSettings[1].university" value="0" checked="checked">公立<input data-ng-model="childSettings[1].university" type="radio" name="childSettings[1].university" value="1">私立文系<input data-ng-model="childSettings[1].university" type="radio" name="childSettings[1].university" value="2">私立理系<input data-ng-model="childSettings[1].university" type="radio" name="childSettings[1].university" value="3">考慮しない</label>
               </div>
             </div>
           </div>
@@ -122,6 +122,9 @@
                 <th>資産額</th>
                 <th>子供年齢</th>
                 <th>学費</th>
+                <th>子供年齢</th>
+                <th>学費</th>
+                <th>学費計</th>
               </tr>
             </thead>
             <tbody>
@@ -131,6 +134,9 @@
                 <td><span class="deposit">{{data.deposit}}</span></td>
                 <td><span class="childAge">{{data.children[0].childAge}}</span></td>
                 <td><span class="schoolExpenses">{{data.children[0].schoolExpenses}}</span></td>
+                <td><span class="childAge">{{data.children[1].childAge}}</span></td>
+                <td><span class="schoolExpenses">{{data.children[1].schoolExpenses}}</span></td>
+                <td><span class="schoolExpenses">{{data.children[0].schoolExpenses+data.children[1].schoolExpenses}}</span></td>
               </tr>
             </tbody>
           </table>

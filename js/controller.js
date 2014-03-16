@@ -7,18 +7,27 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
   $scope.asset = 10000000;
   $scope.depositPerYear = 1000000;
   $scope.interestRate = 101;
-  $scope.birthYear = 2006;
-  $scope.kindergarten = 0;
-  $scope.primarySchool = 0;
-  $scope.juniorHighSchool = 0;
-  $scope.highSchool = 1;
-  $scope.university = 1;
+
   $scope.pension = 786500;
   $scope.livingCost = 297070 * 12;
   $scope.pensionStart = 65;
   $scope.retirementAge= 60;
 
-  $scope.childSettings = [{},{}];
+  $scope.childSettings = [{
+    birthYear: 2006,
+    kindergarten: 0,
+    primarySchool: 0,
+    juniorHighSchool: 0,
+    highSchool: 1,
+    university: 1
+  },{
+    birthYear: 2008,
+    kindergarten: 0,
+    primarySchool: 0,
+    juniorHighSchool: 0,
+    highSchool: 1,
+    university: 1
+  }];
   // statistics
   var lifeSpan = 80;
   // school expenses
@@ -27,16 +36,27 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
     190000, 210000, 260000,
     310000, 250000, 270000, 300000, 310000, 390000,
     450000, 400000, 500000,
-    440000, 400000, 330000
+    440000, 400000, 330000,
+    940000, 540000, 540000, 540000
       ];
   var privateSchool = [
     0, 0, 0, 0,
     480000, 450000, 530000,
     1700000, 1200000, 1250000, 1400000, 1450000, 1550000,
     1560000, 1120000, 1200000,
-    1160000, 850000, 880000
+    1160000, 850000, 880000,
+    1200000, 900000, 900000, 900000
       ];
-  var schoolExpenses = [publicSchool, privateSchool];
+  var privateSchoolScience = [
+    0, 0, 0, 0,
+    0, 0, 0,
+    0, 0, 0, 0, 0, 0,
+    0, 0, 0,
+    0, 0, 0,
+    1500000, 1200000, 1200000, 1200000
+      ];
+
+  var schoolExpenses = [publicSchool, privateSchool, privateSchoolScience];
 
   var schoolYear = [ null, null, null, null,
       'kindergarten', 'kindergarten', 'kindergarten',
@@ -76,10 +96,12 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
         'deposit' : Math.round(totalDeposit),
         'children' : []
       };
-      var child = {};
-      child.birthYear = birthYear;
-      $scope.processChild(tmp,{ 'birthYear': birthYear }, child);
-      tmp.children.push(child);
+      angular.forEach($scope.childSettings, function(setting){
+        var child = {};
+        //child.birthYear = birthYear;
+        $scope.processChild(tmp, setting, child);
+        tmp.children.push(child);
+      });
 
       $scope.datas.push(tmp);
       if(age <= parseInt($scope.retirementAge,10)){
@@ -128,7 +150,7 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
     if(childAge || childAge === 0){
       child.childAge = childAge;
       child.childSchool = schoolYear[childAge];
-      schoolType = $scope[child.childSchool];
+      schoolType = childSetting[child.childSchool];
       if(schoolType != null){
         child.schoolExpenses = schoolExpenses[schoolType][childAge];
       }
