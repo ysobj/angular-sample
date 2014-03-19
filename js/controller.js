@@ -178,4 +178,9 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
     'deposit' : 120
   }
   ];
+})
+.directive('yearview', function(){
+  return {
+    templateUrl: 'yearView.html'
+  };
 });
