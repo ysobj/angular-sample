@@ -15,6 +15,7 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
   $scope.retirementMoney = 10000000;
 
   $scope.childSettings = [{
+    planed: true,
     birthYear: 2006,
     kindergarten: 0,
     primarySchool: 0,
@@ -22,6 +23,7 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
     highSchool: 1,
     university: 1
   },{
+    planed: true,
     birthYear: 2008,
     kindergarten: 0,
     primarySchool: 0,
@@ -99,10 +101,11 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
         'children' : []
       };
       angular.forEach($scope.childSettings, function(setting){
-        var child = {};
-        //child.birthYear = birthYear;
-        $scope.processChild(tmp, setting, child);
-        tmp.children.push(child);
+        if(setting.planed){
+          var child = {};
+          $scope.processChild(tmp, setting, child);
+          tmp.children.push(child);
+        }
       });
 
       $scope.datas.push(tmp);
