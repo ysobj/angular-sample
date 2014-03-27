@@ -102,8 +102,7 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
       };
       angular.forEach($scope.childSettings, function(setting){
         if(setting.planed){
-          var child = {};
-          $scope.processChild(tmp, setting, child);
+          var child = $scope.processChild(tmp, setting);
           tmp.children.push(child);
         }
       });
@@ -153,6 +152,9 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
     });
   };
   $scope.processChild = function(context, childSetting, child){
+    if(!child){
+      child = {};
+    }
     var childAge = normalizeAge(context.year - childSetting.birthYear);
     var schoolType = 0;
     if(childAge || childAge === 0){
@@ -163,6 +165,7 @@ lifeplanApp.controller('lifeplanCtrl', function($scope){
         child.schoolExpenses = schoolExpenses[schoolType][childAge];
       }
     }
+    return child;
   };
   $scope.datas = [
   {
